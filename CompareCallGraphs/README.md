@@ -13,7 +13,7 @@ Average recall:    1.0
 The application built the static call graph of `tests/md5-bundler.js` in WALA and compared it to the dynamic call graph of that file found in `jalangi/cgs/md5-bundler.json`. 
 
 # Usage
-1. Copy the JavaScript file you want to analyze, say `foo.js` to the `tests` directory.
+1. Copy the JavaScript file you want to analyze, say `foo.js`, to the `tests` directory
 
 2. Compute the dynamic call graph of the file by invoking the Jalangi2 analysis:
 
@@ -24,4 +24,4 @@ The application built the static call graph of `tests/md5-bundler.js` in WALA an
 
 3. Go to the run configuration of `ComputeCGAccuracy.launch` and change the first argument to: `tests/foo.js`
 
-Alternatively specify the path to the JavaScript file as first argument in the run configuration and the path to the Jalangi call graph as second argument.
+Alternatively specify the path to the JavaScript file as the first argument in the run configuration and the path to the Jalangi call graph of that file as second argument.
