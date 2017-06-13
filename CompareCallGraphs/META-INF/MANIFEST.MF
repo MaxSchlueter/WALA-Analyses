@@ -3,7 +3,6 @@ Bundle-ManifestVersion: 2
 Bundle-Name: CompareCallGraphs
 Bundle-SymbolicName: CompareCallGraphs
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: comparecallgraphs.Activator
 Require-Bundle: com.ibm.wala.cast.js;bundle-version="1.3.10",
  com.ibm.wala.cast.js.rhino;bundle-version="1.3.10",
  com.ibm.wala.core;bundle-version="1.3.10",
@@ -12,4 +11,3 @@ Require-Bundle: com.ibm.wala.cast.js;bundle-version="1.3.10",
  com.google.gson;bundle-version="2.2.4",
  com.ibm.wala.cast.js.test.data;bundle-version="1.3.10"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Bundle-ActivationPolicy: lazy
