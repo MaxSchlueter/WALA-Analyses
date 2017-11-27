@@ -6,29 +6,24 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Properties;
 
-import com.ibm.wala.cast.js.ipa.callgraph.JSCFABuilder;
 import com.ibm.wala.cast.js.ipa.callgraph.JSCallGraphUtil;
 import com.ibm.wala.cast.js.ipa.modref.JavaScriptModRef;
+import com.ibm.wala.cast.js.nodejs.NodejsCallGraphBuilderUtil;
 import com.ibm.wala.cast.js.test.JSCallGraphBuilderUtil;
 import com.ibm.wala.cast.js.translator.CAstRhinoTranslatorFactory;
 import com.ibm.wala.cast.js.translator.JavaScriptTranslatorFactory;
-import com.ibm.wala.cast.types.AstMethodReference;
-import com.ibm.wala.classLoader.IClass;
 import com.ibm.wala.examples.drivers.PDFTypeHierarchy;
 import com.ibm.wala.examples.properties.WalaExamplesProperties;
 import com.ibm.wala.ipa.callgraph.CGNode;
 import com.ibm.wala.ipa.callgraph.CallGraph;
 import com.ibm.wala.ipa.callgraph.CallGraphStats;
 import com.ibm.wala.ipa.callgraph.propagation.InstanceKey;
-import com.ibm.wala.ipa.callgraph.propagation.PointerAnalysis;
+import com.ibm.wala.ipa.callgraph.propagation.PropagationCallGraphBuilder;
 import com.ibm.wala.ipa.slicer.MethodEntryStatement;
-import com.ibm.wala.ipa.slicer.MethodExitStatement;
-import com.ibm.wala.ipa.slicer.NormalStatement;
 import com.ibm.wala.ipa.slicer.SDG;
 import com.ibm.wala.ipa.slicer.Slicer;
 import com.ibm.wala.ipa.slicer.Statement;
 import com.ibm.wala.properties.WalaProperties;
-import com.ibm.wala.types.TypeName;
 import com.ibm.wala.util.CancelException;
 import com.ibm.wala.util.Predicate;
 import com.ibm.wala.util.WalaException;
@@ -43,6 +38,8 @@ import com.ibm.wala.viz.PDFViewUtil;
 public class PrintSDG {
 
 	private final static String SVG_FILE = "sdg.svg";
+	
+	private final static boolean NODEJS = true;
 
 	private static Collection<Statement> slice;
 
@@ -62,7 +59,12 @@ public class PrintSDG {
 		JavaScriptTranslatorFactory translatorFactory = new CAstRhinoTranslatorFactory();
 		JSCallGraphUtil.setTranslatorFactory(translatorFactory);
 		
-		JSCFABuilder builder = JSCallGraphBuilderUtil.makeScriptCGBuilder(file.getParent(), file.getName());
+		PropagationCallGraphBuilder builder;
+		if (NODEJS) {
+			builder = NodejsCallGraphBuilderUtil.makeCGBuilder(file);
+		} else {
+			builder = JSCallGraphBuilderUtil.makeScriptCGBuilder(file.getParent(), file.getName());
+		}
 		
 		CallGraph cg = builder.makeCallGraph(builder.getOptions());
 
